@@ -80,16 +80,7 @@ public final class FireballLauncherItem extends Item {
 		Vec3d spawn = sp.getEyePos().add(look.multiply(0.35));
 		fireball.setPosition(spawn);
 		serverWorld.spawnEntity(fireball);
-		world.playSound(
-			null,
-			sp.getX(),
-			sp.getY(),
-			sp.getZ(),
-			SoundEvents.ENTITY_GHAST_SHOOT,
-			SoundCategory.PLAYERS,
-			1.0f,
-			(world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2f + 1.0f
-		);
+		world.playSound(null, sp.getX(), sp.getY(), sp.getZ(), SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.PLAYERS, 0.6f, 1.5f);
 		HeatTracker.addHeatFromShot(sp);
 		if (!sp.getAbilities().creativeMode) {
 			EquipmentSlot slot = hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
