@@ -16,7 +16,6 @@ public final class FbLauncherEnchantments {
 	public static final RegistryKey<Enchantment> BLAST_SHELL_KEY = key("blast_shell");
 	public static final RegistryKey<Enchantment> GHOST_BOLT_KEY = key("ghost_bolt");
 	public static final RegistryKey<Enchantment> SURGICAL_FLAME_KEY = key("surgical_flame");
-	public static final RegistryKey<Enchantment> PYRE_BOUNTY_KEY = key("pyre_bounty");
 	public static final RegistryKey<Enchantment> PYROCLAST_KEY = key("pyroclast");
 	public static final RegistryKey<Enchantment> IRON_STANCE_KEY = key("iron_stance");
 
@@ -26,7 +25,6 @@ public final class FbLauncherEnchantments {
 		BLAST_SHELL_KEY,
 		GHOST_BOLT_KEY,
 		SURGICAL_FLAME_KEY,
-		PYRE_BOUNTY_KEY,
 		PYROCLAST_KEY,
 		IRON_STANCE_KEY
 	);
@@ -46,8 +44,7 @@ public final class FbLauncherEnchantments {
 	}
 
 	public static boolean isDamage(RegistryEntry<Enchantment> e) {
-		return e.matchesKey(PYRE_BOUNTY_KEY)
-			|| e.matchesKey(BLAST_SHELL_KEY)
+		return e.matchesKey(BLAST_SHELL_KEY)
 			|| e.matchesKey(GHOST_BOLT_KEY)
 			|| e.matchesKey(PYROCLAST_KEY)
 			|| e.matchesKey(IRON_STANCE_KEY)

@@ -59,24 +59,6 @@ public final class HeatTracker {
 		DATA.put(id, new PlayerHeatData(heat, 0));
 	}
 
-	public static void relieveHeat(ServerPlayerEntity player, int amount) {
-		UUID id = player.getUuid();
-		PlayerHeatData d = DATA.getOrDefault(id, ZERO);
-		if (d.overheatedTicks() > 0 || amount <= 0) {
-			return;
-		}
-		int heat = d.heat();
-		if (heat <= 0) {
-			return;
-		}
-		int next = Math.max(0, heat - amount);
-		if (next > 0) {
-			DATA.put(id, new PlayerHeatData(next, 0));
-		} else {
-			DATA.remove(id);
-		}
-	}
-
 	private static void triggerOverheat(ServerPlayerEntity player) {
 		UUID id = player.getUuid();
 		DATA.put(id, new PlayerHeatData(0, LauncherHeat.overheatDurationTicks(player)));

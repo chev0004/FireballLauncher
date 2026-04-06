@@ -5,15 +5,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.projectile.FireballEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
 public final class FbLauncherMod implements ModInitializer {
@@ -40,39 +34,5 @@ public final class FbLauncherMod implements ModInitializer {
 			)
 		);
 		HeatTracker.register();
-		registerPyreBounty();
-	}
-
-	private static void registerPyreBounty() {
-		ServerLivingEntityEvents.AFTER_DEATH.register(FbLauncherMod::onLivingDeath);
-	}
-
-	private static void onLivingDeath(LivingEntity entity, DamageSource damageSource) {
-		if (entity.getEntityWorld().isClient()) {
-			return;
-		}
-		if (entity instanceof ServerPlayerEntity) {
-			return;
-		}
-		Entity src = damageSource.getSource();
-		if (!(src instanceof FireballEntity fb)) {
-			return;
-		}
-		if (!(fb.getOwner() instanceof ServerPlayerEntity killer)) {
-			return;
-		}
-		int level = 0;
-		var main = killer.getMainHandStack();
-		var off = killer.getOffHandStack();
-		if (main.isOf(FIREBALL_LAUNCHER)) {
-			level = Math.max(level, LauncherEnchantmentUtil.stackLevel(main, killer, FbLauncherEnchantments.PYRE_BOUNTY_KEY));
-		}
-		if (off.isOf(FIREBALL_LAUNCHER)) {
-			level = Math.max(level, LauncherEnchantmentUtil.stackLevel(off, killer, FbLauncherEnchantments.PYRE_BOUNTY_KEY));
-		}
-		if (level <= 0) {
-			return;
-		}
-		HeatTracker.relieveHeat(killer, 20 * level);
 	}
 }
