@@ -6,6 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
@@ -23,7 +24,13 @@ public final class FbLauncherMod implements ModInitializer {
 		FIREBALL_LAUNCHER = Registry.register(
 			Registries.ITEM,
 			key,
-			new FireballLauncherItem(new Item.Settings().registryKey(key).useItemPrefixedTranslationKey())
+			new FireballLauncherItem(
+				new Item.Settings()
+					.maxDamage(FireballLauncherItem.MAX_DAMAGE)
+					.rarity(Rarity.EPIC)
+					.registryKey(key)
+					.useItemPrefixedTranslationKey()
+			)
 		);
 		HeatTracker.register();
 	}
