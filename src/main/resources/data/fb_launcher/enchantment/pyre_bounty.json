@@ -1,0 +1,11 @@
+{
+  "anvil_cost": 6,
+  "description": { "translate": "enchantment.fb_launcher.pyre_bounty" },
+  "max_cost": { "base": 24, "per_level_above_first": 8 },
+  "max_level": 3,
+  "min_cost": { "base": 14, "per_level_above_first": 8 },
+  "primary_items": "#fb_launcher:enchantable/fireball_launcher",
+  "slots": ["mainhand"],
+  "supported_items": "#fb_launcher:enchantable/fireball_launcher",
+  "weight": 2
+}

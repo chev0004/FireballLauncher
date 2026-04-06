@@ -1,0 +1,11 @@
+{
+  "anvil_cost": 5,
+  "description": { "translate": "enchantment.fb_launcher.quench" },
+  "max_cost": { "base": 20, "per_level_above_first": 8 },
+  "max_level": 3,
+  "min_cost": { "base": 10, "per_level_above_first": 8 },
+  "primary_items": "#fb_launcher:enchantable/fireball_launcher",
+  "slots": ["mainhand"],
+  "supported_items": "#fb_launcher:enchantable/fireball_launcher",
+  "weight": 3
+}
