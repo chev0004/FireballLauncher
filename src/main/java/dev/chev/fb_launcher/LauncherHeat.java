@@ -11,16 +11,14 @@ public final class LauncherHeat {
 	public static final int OVERHEAT_DURATION_TICKS = 200;
 
 	public static int overheatThreshold(PlayerEntity player) {
-		int forge = LauncherEnchantmentUtil.level(player, FbLauncherEnchantments.FORGE_HEART_KEY);
-		return OVERHEAT_THRESHOLD + forge * 50;
+		return OVERHEAT_THRESHOLD;
 	}
 
 	public static int heatDecayPerTick(PlayerEntity player) {
-		return 1 + LauncherEnchantmentUtil.level(player, FbLauncherEnchantments.QUENCH_KEY);
+		return 1;
 	}
 
 	public static int overheatDurationTicks(PlayerEntity player) {
-		int q = LauncherEnchantmentUtil.level(player, FbLauncherEnchantments.QUENCH_KEY);
-		return Math.max(40, OVERHEAT_DURATION_TICKS - q * 50);
+		return OVERHEAT_DURATION_TICKS;
 	}
 }

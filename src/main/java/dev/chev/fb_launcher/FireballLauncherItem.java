@@ -75,9 +75,7 @@ public final class FireballLauncherItem extends Item {
 			return ActionResult.FAIL;
 		}
 		Vec3d look = sp.getRotationVec(1.0f);
-		int scorched = LauncherEnchantmentUtil.stackLevel(launcherStack, sp, FbLauncherEnchantments.SCORCHED_HORIZON_KEY);
-		double speed = 1.5 + 0.15 * scorched;
-		Vec3d motion = look.multiply(speed);
+		Vec3d motion = look.multiply(1.5);
 		int hellfire = LauncherEnchantmentUtil.stackLevel(launcherStack, sp, FbLauncherEnchantments.HELLFIRE_KEY);
 		int explosionPower = FIREBALL_EXPLOSION_POWER + hellfire;
 		FireballEntity fireball = new FireballEntity(serverWorld, sp, motion, explosionPower);
