@@ -1,5 +1,10 @@
 {
   "item.fb_launcher.fireball_launcher": "ファイヤーボールランチャー",
+  "item.fb_launcher.fireball_launcher.stats_header": "発射したとき：",
+  "item.fb_launcher.fireball_launcher.gunpowder_cost": " %s 火薬／発射",
+  "item.fb_launcher.fireball_launcher.explosion_power": " %s 爆発威力",
+  "item.fb_launcher.fireball_launcher.heat_per_shot": " +%s 熱量／発射",
+  "item.fb_launcher.fireball_launcher.overheat_at": " %s オーバーヒート",
   "fb_launcher.title.overheat": "⚠ OVERHEATED ⚠",
   "fb_launcher.subtitle.overheat": "オーバーヒート！しばらく待て",
   "fb_launcher.title.ready": "準備完了！",
