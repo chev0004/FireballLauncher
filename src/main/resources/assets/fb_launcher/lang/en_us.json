@@ -1,5 +1,10 @@
 {
   "item.fb_launcher.fireball_launcher": "Fireball Launcher",
+  "item.fb_launcher.fireball_launcher.stats_header": "When fired:",
+  "item.fb_launcher.fireball_launcher.gunpowder_cost": " %s Gunpowder per shot",
+  "item.fb_launcher.fireball_launcher.explosion_power": " %s Explosion power",
+  "item.fb_launcher.fireball_launcher.heat_per_shot": " +%s Heat per shot",
+  "item.fb_launcher.fireball_launcher.overheat_at": " %s Overheat threshold",
   "fb_launcher.title.overheat": "⚠ OVERHEATED ⚠",
   "fb_launcher.subtitle.overheat": "Cooling down...",
   "fb_launcher.title.ready": "Ready!",
