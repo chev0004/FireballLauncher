@@ -52,10 +52,12 @@ public final class HeatHudOverlay {
 		int barY = resolveBarY(client, player, sh, screenBarH);
 		float fill;
 		if (oh > 0) {
-			fill = (float) oh / LauncherHeat.OVERHEAT_DURATION_TICKS;
+			float ohCap = LauncherHeat.overheatDurationTicks(player);
+			fill = ohCap > 0 ? (float) oh / ohCap : 0f;
 			fill = MathHelper.clamp(fill, 0f, 1f);
 		} else {
-			fill = (float) h / LauncherHeat.OVERHEAT_THRESHOLD;
+			float heatCap = LauncherHeat.overheatThreshold(player);
+			fill = heatCap > 0 ? (float) h / heatCap : 0f;
 			fill = MathHelper.clamp(fill, 0f, 1f);
 		}
 		int progressSrcW = (int) (fill * (SOURCE_BAR_W + 1));
