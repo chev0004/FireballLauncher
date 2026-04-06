@@ -1,0 +1,8 @@
+{
+  "item.fb_launcher.fireball_launcher": "ファイヤーボールランチャー",
+  "fb_launcher.title.overheat": "⚠ OVERHEATED ⚠",
+  "fb_launcher.subtitle.overheat": "オーバーヒート！しばらく待て",
+  "fb_launcher.title.ready": "準備完了！",
+  "fb_launcher.subtitle.ready": "発射可能！",
+  "fb_launcher.hud.overheat": "⚠ オーバーヒート | あと%ss"
+}

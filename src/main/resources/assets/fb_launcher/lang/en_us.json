@@ -1,0 +1,8 @@
+{
+  "item.fb_launcher.fireball_launcher": "Fireball Launcher",
+  "fb_launcher.title.overheat": "⚠ OVERHEATED ⚠",
+  "fb_launcher.subtitle.overheat": "Cooling down...",
+  "fb_launcher.title.ready": "Ready!",
+  "fb_launcher.subtitle.ready": "Ready to fire!",
+  "fb_launcher.hud.overheat": "⚠ OVERHEATED | Cooling down: %ss"
+}

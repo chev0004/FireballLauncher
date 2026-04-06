@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:blaze_rod",
+    "F": "minecraft:fire_charge",
+    "G": "minecraft:dried_ghast"
+  },
+  "pattern": [
+    " F ",
+    "BGB",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "fb_launcher:fireball_launcher"
+  }
+}

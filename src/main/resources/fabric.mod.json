@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "fb_launcher",
+  "version": "${version}",
+  "name": "Fireball Launcher",
+  "description": "A fireball launcher item with an overheat system.",
+  "authors": [],
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.chev.fb_launcher.FbLauncherMod"
+    ],
+    "client": [
+      "dev.chev.fb_launcher.FbLauncherClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.6",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
