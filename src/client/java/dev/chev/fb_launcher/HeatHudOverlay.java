@@ -16,9 +16,14 @@ public final class HeatHudOverlay {
 
 	private static final Identifier XP_BAR_BACKGROUND = Identifier.ofVanilla("hud/experience_bar_background");
 	private static final Identifier XP_BAR_PROGRESS = Identifier.ofVanilla("hud/experience_bar_progress");
-	private static final float BAR_SCALE = 0.5F;
-	private static final int VANILLA_BAR_TEX_W = 182;
-	private static final int VANILLA_BAR_TEX_H = 5;
+
+	private static final int SOURCE_BAR_W = 182;
+	private static final int SOURCE_BAR_H = 5;
+
+	private static final float DISPLAY_BAR_W = 80f;
+	private static final float DISPLAY_BAR_H = 5f;
+	private static final float BAR_SCALE = 1f;
+
 	private static final int GAP_ABOVE_ROW = 2;
 	private static final int FOOD_ICON_SIZE = 9;
 	private static final int MOUNT_ROW_STEP = 10;
@@ -39,8 +44,10 @@ public final class HeatHudOverlay {
 		}
 		int sw = context.getScaledWindowWidth();
 		int sh = context.getScaledWindowHeight();
-		int screenBarW = Math.round(VANILLA_BAR_TEX_W * BAR_SCALE);
-		int screenBarH = Math.round(VANILLA_BAR_TEX_H * BAR_SCALE);
+		float scaleX = DISPLAY_BAR_W * BAR_SCALE / SOURCE_BAR_W;
+		float scaleY = DISPLAY_BAR_H * BAR_SCALE / SOURCE_BAR_H;
+		int screenBarW = Math.round(SOURCE_BAR_W * scaleX);
+		int screenBarH = Math.round(SOURCE_BAR_H * scaleY);
 		int barX = foodColumnRight(sw) - screenBarW;
 		int barY = resolveBarY(client, player, sh, screenBarH);
 		float fill;
@@ -51,25 +58,25 @@ public final class HeatHudOverlay {
 			fill = (float) h / LauncherHeat.OVERHEAT_THRESHOLD;
 			fill = MathHelper.clamp(fill, 0f, 1f);
 		}
-		int progressTexW = (int) (fill * 183.0F);
-		progressTexW = MathHelper.clamp(progressTexW, 0, VANILLA_BAR_TEX_W);
+		int progressSrcW = (int) (fill * (SOURCE_BAR_W + 1));
+		progressSrcW = MathHelper.clamp(progressSrcW, 0, SOURCE_BAR_W);
 		context.getMatrices().pushMatrix();
 		context.getMatrices().translate(barX, barY);
-		context.getMatrices().scale(BAR_SCALE, BAR_SCALE);
-		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, XP_BAR_BACKGROUND, 0, 0, VANILLA_BAR_TEX_W, VANILLA_BAR_TEX_H);
-		if (progressTexW > 0) {
+		context.getMatrices().scale(scaleX, scaleY);
+		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, XP_BAR_BACKGROUND, 0, 0, SOURCE_BAR_W, SOURCE_BAR_H);
+		if (progressSrcW > 0) {
 			if (oh > 0) {
 				context.drawGuiTexture(
 					RenderPipelines.GUI_TEXTURED,
 					XP_BAR_PROGRESS,
-					VANILLA_BAR_TEX_W,
-					VANILLA_BAR_TEX_H,
+					SOURCE_BAR_W,
+					SOURCE_BAR_H,
 					0,
 					0,
 					0,
 					0,
-					progressTexW,
-					VANILLA_BAR_TEX_H,
+					progressSrcW,
+					SOURCE_BAR_H,
 					ColorHelper.getArgb(255, 255, 160, 90)
 				);
 			} else {
@@ -77,14 +84,14 @@ public final class HeatHudOverlay {
 				context.drawGuiTexture(
 					RenderPipelines.GUI_TEXTURED,
 					XP_BAR_PROGRESS,
-					VANILLA_BAR_TEX_W,
-					VANILLA_BAR_TEX_H,
+					SOURCE_BAR_W,
+					SOURCE_BAR_H,
 					0,
 					0,
 					0,
 					0,
-					progressTexW,
-					VANILLA_BAR_TEX_H,
+					progressSrcW,
+					SOURCE_BAR_H,
 					argb
 				);
 			}
