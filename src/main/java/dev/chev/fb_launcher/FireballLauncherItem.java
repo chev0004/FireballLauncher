@@ -25,9 +25,9 @@ import net.minecraft.world.World;
 
 public final class FireballLauncherItem extends Item {
 
-	public static final int MAX_DAMAGE = 250;
-	public static final int GUNPOWDER_PER_SHOT = 4;
-	public static final int FIREBALL_EXPLOSION_POWER = 3;
+	public static final int MAX_DAMAGE = 120;
+	public static final int GUNPOWDER_PER_SHOT = 6;
+	public static final int FIREBALL_EXPLOSION_POWER = 2;
 	private static final String TOOLTIP_ROOT = "item.fb_launcher.fireball_launcher.";
 	private static final int TOOLTIP_STAT_GREEN = 0x00A800;
 
