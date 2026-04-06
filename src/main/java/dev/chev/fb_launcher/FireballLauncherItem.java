@@ -70,15 +70,20 @@ public final class FireballLauncherItem extends Item {
 		if (!sp.getAbilities().creativeMode && launcherStack.isDamageable() && launcherStack.getDamage() >= launcherStack.getMaxDamage()) {
 			return ActionResult.FAIL;
 		}
-		if (!tryConsumeGunpowder(sp)) {
+		if (!tryConsumeGunpowder(sp, launcherStack)) {
 			world.playSound(null, sp.getX(), sp.getY(), sp.getZ(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			return ActionResult.FAIL;
 		}
 		Vec3d look = sp.getRotationVec(1.0f);
-		Vec3d motion = look.multiply(1.5);
-		FireballEntity fireball = new FireballEntity(serverWorld, sp, motion, FIREBALL_EXPLOSION_POWER);
+		int scorched = LauncherEnchantmentUtil.stackLevel(launcherStack, sp, FbLauncherEnchantments.SCORCHED_HORIZON_KEY);
+		double speed = 1.5 + 0.15 * scorched;
+		Vec3d motion = look.multiply(speed);
+		int hellfire = LauncherEnchantmentUtil.stackLevel(launcherStack, sp, FbLauncherEnchantments.HELLFIRE_KEY);
+		int explosionPower = FIREBALL_EXPLOSION_POWER + hellfire;
+		FireballEntity fireball = new FireballEntity(serverWorld, sp, motion, explosionPower);
 		Vec3d spawn = sp.getEyePos().add(look.multiply(0.35));
 		fireball.setPosition(spawn);
+		((FbLaunchedFireball) fireball).fb_launcher$initLauncherData(sp, launcherStack);
 		serverWorld.spawnEntity(fireball);
 		world.playSound(null, sp.getX(), sp.getY(), sp.getZ(), SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.PLAYERS, 0.6f, 1.5f);
 		HeatTracker.addHeatFromShot(sp);
@@ -89,10 +94,11 @@ public final class FireballLauncherItem extends Item {
 		return ActionResult.SUCCESS;
 	}
 
-	private static boolean tryConsumeGunpowder(ServerPlayerEntity player) {
+	private static boolean tryConsumeGunpowder(ServerPlayerEntity player, ItemStack launcherStack) {
 		if (player.getAbilities().creativeMode) {
 			return true;
 		}
+		int cost = gunpowderPerShot(launcherStack, player);
 		PlayerInventory inv = player.getInventory();
 		int available = 0;
 		for (int i = 0; i < inv.size(); i++) {
@@ -101,10 +107,10 @@ public final class FireballLauncherItem extends Item {
 				available += stack.getCount();
 			}
 		}
-		if (available < GUNPOWDER_PER_SHOT) {
+		if (available < cost) {
 			return false;
 		}
-		int remaining = GUNPOWDER_PER_SHOT;
+		int remaining = cost;
 		for (int i = 0; i < inv.size() && remaining > 0; i++) {
 			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty() && stack.isOf(Items.GUNPOWDER)) {
@@ -114,5 +120,10 @@ public final class FireballLauncherItem extends Item {
 			}
 		}
 		return remaining == 0;
+	}
+
+	private static int gunpowderPerShot(ItemStack launcherStack, ServerPlayerEntity player) {
+		int lean = LauncherEnchantmentUtil.stackLevel(launcherStack, player, FbLauncherEnchantments.LEAN_BURN_KEY);
+		return Math.max(1, GUNPOWDER_PER_SHOT - lean);
 	}
 }

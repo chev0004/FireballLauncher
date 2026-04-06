@@ -52,16 +52,34 @@ public final class HeatTracker {
 			return;
 		}
 		int heat = d.heat() + LauncherHeat.HEAT_PER_SHOT;
-		if (heat >= LauncherHeat.OVERHEAT_THRESHOLD) {
+		if (heat >= LauncherHeat.overheatThreshold(player)) {
 			triggerOverheat(player);
 			return;
 		}
 		DATA.put(id, new PlayerHeatData(heat, 0));
 	}
 
+	public static void relieveHeat(ServerPlayerEntity player, int amount) {
+		UUID id = player.getUuid();
+		PlayerHeatData d = DATA.getOrDefault(id, ZERO);
+		if (d.overheatedTicks() > 0 || amount <= 0) {
+			return;
+		}
+		int heat = d.heat();
+		if (heat <= 0) {
+			return;
+		}
+		int next = Math.max(0, heat - amount);
+		if (next > 0) {
+			DATA.put(id, new PlayerHeatData(next, 0));
+		} else {
+			DATA.remove(id);
+		}
+	}
+
 	private static void triggerOverheat(ServerPlayerEntity player) {
 		UUID id = player.getUuid();
-		DATA.put(id, new PlayerHeatData(0, LauncherHeat.OVERHEAT_DURATION_TICKS));
+		DATA.put(id, new PlayerHeatData(0, LauncherHeat.overheatDurationTicks(player)));
 		player.networkHandler.sendPacket(new ClearTitleS2CPacket(false));
 		sendTitle(
 			player,
@@ -107,7 +125,8 @@ public final class HeatTracker {
 		}
 
 		if (heat > 0) {
-			int next = heat - 1;
+			int decay = LauncherHeat.heatDecayPerTick(player);
+			int next = heat > decay ? heat - decay : 0;
 			if (next > 0) {
 				DATA.put(id, new PlayerHeatData(next, 0));
 			} else {
