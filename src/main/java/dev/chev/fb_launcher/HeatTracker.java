@@ -107,7 +107,7 @@ public final class HeatTracker {
 		}
 
 		if (heat > 0) {
-			int decay = LauncherHeat.heatDecayPerTick(player);
+			int decay = LauncherHeat.heatDecayThisTick(player);
 			int next = heat > decay ? heat - decay : 0;
 			if (next > 0) {
 				DATA.put(id, new PlayerHeatData(next, 0));
