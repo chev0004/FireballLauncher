@@ -127,6 +127,10 @@ public final class HeatTracker {
 		UUID id = player.getUuid();
 		PlayerHeatData current = DATA.getOrDefault(id, ZERO);
 		PlayerHeatData last = LAST_SYNCED.get(id);
+		if (!ServerPlayNetworking.canSend(player, HeatSyncPayload.ID)) {
+			LAST_SYNCED.put(id, current);
+			return;
+		}
 		if (current.heat() == 0 && current.overheatedTicks() == 0) {
 			if (last == null) {
 				return;
