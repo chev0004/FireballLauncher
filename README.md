@@ -11,7 +11,18 @@ Fabric mod for **Minecraft 1.21.11** that adds a **Fireball Launcher** item: a g
 
 ## Installation
 
-Place the built jar from `build/libs/` (for example `fb_launcher-<version>.jar`) in your instance `mods` folder alongside Fabric API.
+Place the built jar from `build/libs/` (for example `fb_launcher-<version>.jar`) in your instance `mods` folder alongside Fabric API. The jar bundles **[Polymer](https://github.com/Patbox/polymer)** (core, **resource pack**, and **auto host**), so you do not need separate Polymer downloads for normal use.
+
+### Joining a server without this mod installed (Polymer)
+
+The launcher uses **Polymer** so **registry sync stays compatible** with clients that do not have `fb_launcher`:
+
+- On the **server**, only the mod jar (with bundled Polymer) is required.
+- **Players** can join with a normal **Fabric** setup (Loader + Fabric API) and **no** `fb_launcher` jar. They still need Fabric because the server is Fabric; **plain vanilla** clients cannot join a Fabric server at all.
+- **Looks and name:** Polymer sends a **server resource pack** (via **Polymer Auto Host**) that includes this mod’s models, textures, and lang files. **Accept the server pack** when prompted so the launcher shows the **correct icon and item name** instead of a plain stick. The underlying packet item type is a **stick** with a custom **item model** pointing at `fb_launcher:item/fireball_launcher`; behavior stays server-driven.
+- **Heat HUD**, extra enchantment description lines, and other code in `FbLauncherClient` **only run** if players also install `fb_launcher` on the client. Overheat titles and action bar feedback still work through vanilla packets.
+
+Heat sync packets are only sent to clients that register the mod channel, so missing the client mod does not cause disconnects from that feature.
 
 ## Obtaining the item
 
@@ -34,7 +45,7 @@ Recipe id: `fb_launcher:fireball_launcher` (shaped crafting, equipment category)
 1. Hold the launcher in your **main hand** or **off hand**.
 2. Carry **gunpowder** in your inventory (consumed per shot unless you are in Creative).
 3. **Use** the item (right-click) to fire a fireball in the direction you are looking.
-4. Watch **heat** on the HUD when holding the launcher (see [Client HUD](#client-hud)). If you overheat, you cannot fire until the cooldown finishes.
+4. Watch **heat** on the HUD when holding the launcher if you use the **client** mod (see [Client HUD](#client-hud)). If you overheat, you cannot fire until the cooldown finishes (server enforces this either way).
 
 **Creative mode:** no gunpowder cost and no durability loss. Heat and overheat still apply when you fire.
 
