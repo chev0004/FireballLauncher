@@ -20,10 +20,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public final class FireballLauncherItem extends Item {
+import eu.pb4.polymer.core.api.item.PolymerItem;
+import xyz.nucleoid.packettweaker.PacketContext;
+
+public final class FireballLauncherItem extends Item implements PolymerItem {
 
 	public static final int MAX_DAMAGE = 120;
 	public static final int GUNPOWDER_PER_SHOT = 6;
@@ -33,6 +37,16 @@ public final class FireballLauncherItem extends Item {
 
 	public FireballLauncherItem(Settings settings) {
 		super(settings);
+	}
+
+	@Override
+	public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
+		return Items.STICK;
+	}
+
+	@Override
+	public Identifier getPolymerItemModel(ItemStack itemStack, PacketContext context) {
+		return Identifier.of(FbLauncherMod.MOD_ID, "item/fireball_launcher");
 	}
 
 	private static Text statLine(String suffix, Object... args) {
