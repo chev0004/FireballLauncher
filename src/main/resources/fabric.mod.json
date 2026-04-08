@@ -22,6 +22,9 @@
     "fabricloader": ">=0.18.6",
     "minecraft": "~1.21.11",
     "java": ">=21",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "polymer-core": ">=0.15.2",
+    "polymer-resource-pack": ">=0.15.2",
+    "polymer-autohost": ">=0.15.2"
   }
 }
